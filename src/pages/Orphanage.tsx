@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { FaWhatsapp } from "react-icons/fa";
 import { FiClock, FiInfo } from "react-icons/fi";
 import { Map, Marker, TileLayer } from "react-leaflet";
 
@@ -60,7 +59,7 @@ export default function Orphanage() {
           <div className="images">
             {orphanage.images.map((image, index) => (
               <button
-                className={activeImageIndex == index ? 'active' : ''}
+                className={activeImageIndex === index ? 'active' : ''}
                 type="button"
                 onClick={() => setActiveImageIndex(index)}
               >

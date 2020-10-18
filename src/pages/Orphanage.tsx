@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FiClock, FiInfo } from "react-icons/fi";
+import { FiClock, FiInfo, FiMessageCircle, FiSend } from "react-icons/fi";
 import { Map, Marker, TileLayer } from "react-leaflet";
 
 import mapIcon from '../utils/mapIcon';
@@ -8,6 +8,7 @@ import '../styles/pages/orphanage.css';
 import Sidebar from "../components/Sidebar";
 import api from "../services/api";
 import { useParams } from "react-router-dom";
+import { Handler } from "leaflet";
 
 interface Orphanage {
   id: number,
@@ -17,6 +18,7 @@ interface Orphanage {
   about: string,
   instructions: string,
   opening_hours: string,
+  whatsapp: string,
   open_on_weekends: boolean,
   images: Array<{
     url: string,
@@ -47,6 +49,7 @@ export default function Orphanage() {
   if (!orphanage) {
     return <p>Carregando...</p>
   }
+
 
   return (
     <div id="page-orphanage">
@@ -86,13 +89,13 @@ export default function Orphanage() {
                 <TileLayer
                   url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
                 />
-                <Marker interactive={false} icon={mapIcon} position={[orphanage.latitude, orphanage.longitude]} />
-              </Map>
+                < Marker interactive={false} icon={mapIcon} position={[orphanage.latitude, orphanage.longitude]} />
+              </Map >
 
               <footer>
                 <a target="_blank" rel="noopener noreferrer" href={`https://www.google.com/maps/dir/?api=1&destination=${orphanage.latitude},${orphanage.longitude}`}>Ver rotas no Google Maps</a>
               </footer>
-            </div>
+            </div >
 
             <hr />
 
@@ -120,13 +123,13 @@ export default function Orphanage() {
               }
             </div>
 
-            {/* <button type="button" className="contact-button">
-              <FaWhatsapp size={20} color="#FFF" />
+            <button type="button" className="contact-button" onClick={() => window.open(`https://wa.me/${orphanage.whatsapp}`)} >
+              <FiSend size={20} color="#FFF" />
               Entrar em contato
-            </button> */}
-          </div>
-        </div>
-      </main>
+            </button>
+          </div >
+        </div >
+      </main >
     </div >
   );
 }
